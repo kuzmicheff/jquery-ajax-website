@@ -11,8 +11,13 @@
     padding: 20px 0px;
 }
 
+.form-control, .btn-default {
+
+    margin-top: 20px;
+}
+
 .footer {
 
-    padding: 20px 0px;
     text-align: center;
+    font-size: 150%;
 }
