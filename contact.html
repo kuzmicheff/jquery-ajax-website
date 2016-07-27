@@ -9,6 +9,7 @@
         <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/fb3463c7-0525-49ee-aa70-5c1eae929782.css"/>
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <!-- <script type="text/javascript" src="//fast.fonts.net/jsapi/fb3463c7-0525-49ee-aa70-5c1eae929782.js"></script> -->
     </head>
@@ -60,18 +61,32 @@
                             <h4>Message</h4>
                         </div>
                         <div class="panel-body">
-                            <form role="form">
+                            <form role="form" name="messageForm" ng-app>
                                 <label class="sr-only" for="name">Full name:</label>
                                 <input class="form-control" id="name" type="text" placeholder="Full name">
                                 <label class="sr-only" for="email">Email address:</label>
                                 <input class="form-control" id="email" type="email" placeholder="Email address">
                                 <label class="sr-only" for="subject">Message subject:</label>
-                                <select class="form-control" id="subject" data-placeholder="Message subject">
-                                    <option value="0">General inquiry</option>
-                                    <option value="1">Estimate request</option>
+                                <select class="form-control" id="subject" ng-model="messageType">
+                                    <option value="1" ng-selected="true">General inquiry</option>
+                                    <option value="2">Estimate request</option>
                                 </select>
-                                <label class="sr-only" for="message">Message text:</label>
-                                <textarea class="form-control" id="message" rows="10" placeholder="Message text"></textarea>
+                                <div ng-switch="messageType">
+                                    <!-- General inquiry fields -->
+                                    <label class="sr-only" for="message" ng-switch-when="1">Message text:</label>
+                                    <textarea class="form-control" id="message" rows="10" placeholder="Message text" ng-switch-when="1"></textarea>
+                                    <!-- Estimate request fields -->
+                                    <label class="sr-only" for="phone" ng-switch-when="2">Phone number:</label>
+                                    <input class="form-control" id="phone" type="text" placeholder="Phone number" ng-switch-when="2">
+                                    <label class="sr-only" for="street" ng-switch-when="2">Street address:</label>
+                                    <input class="form-control" id="street" type="text" placeholder="Street address" ng-switch-when="2">
+                                    <label class="sr-only" for="city" ng-switch-when="2">City:</label>
+                                    <input class="form-control" id="city" type="text" placeholder="City" ng-switch-when="2">
+                                    <label class="sr-only" for="state" ng-switch-when="2">State:</label>
+                                    <input class="form-control" id="state" type="text" placeholder="State" ng-switch-when="2">
+                                    <label class="sr-only" for="zip" ng-switch-when="2">Zip:</label>
+                                    <input class="form-control" id="zip" type="text" placeholder="Zip" ng-switch-when="2">
+                                </div>
                                 <button class="btn btn-default" type="submit">Send message</button>
                                 <button class="btn btn-default" type="reset">Clear form</button>
                             </form>
